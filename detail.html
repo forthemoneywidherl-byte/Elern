@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pilih Paket — CVKita</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="page-head"><button onclick="history.back()">←</button><h1>Detail Paket</h1><span></span></header>
+<main class="section">
+<div id="detail"></div>
+</main>
+<nav class="bottom"><a href="index.html">🏠<span>Beranda</span></a><a href="pesanan.html">🧾<span>Pesanan</span></a><a href="kontak.html">💬<span>Kontak</span></a></nav>
+<script src="app.js"></script><script>
+const id=new URLSearchParams(location.search).get('id')||'ats';
+const p=packages.find(x=>x.id===id)||packages[0];
+document.getElementById('detail').innerHTML=`
+<div class="detail-card"><div class="big-icon">${p.icon}</div><p class="eyebrow">${p.tag}</p><h2>${p.name}</h2><div class="price">${money(p.price)}</div>
+<p class="muted">${p.desc}</p><h3>Yang kamu dapat:</h3><ul class="checks">${p.features.map(x=>`<li>✓ ${x}</li>`).join('')}</ul>
+<button class="btn primary full" onclick="choosePackage('${p.id}')">Pilih Paket Ini</button></div>`;
+</script></body></html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Data Pemesan — CVKita</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="page-head"><button onclick="history.back()">←</button><h1>Data CV</h1><span></span></header>
+<main class="section">
+<div class="selected" id="selected"></div>
+<form id="orderForm" class="form-card">
+<label>Nama lengkap<input name="name" required placeholder="Contoh: Widi Herlambang"></label>
+<label>No. WhatsApp<input name="phone" required inputmode="tel" placeholder="08xxxxxxxxxx"></label>
+<label>Email (opsional)<input name="email" type="email" placeholder="nama@email.com"></label>
+<label>Target pekerjaan<input name="job" required placeholder="Contoh: Barista / Admin"></label>
+<label>Pendidikan terakhir<textarea name="education" required placeholder="Contoh: SMK ... 2016–2019"></textarea></label>
+<label>Pengalaman kerja<textarea name="experience" required placeholder="Tuliskan pengalaman kerja"></textarea></label>
+<label>Skill<textarea name="skills" required placeholder="Contoh: Leadership, komunikasi, teamwork"></textarea></label>
+<label>Tentang diri<textarea name="about" placeholder="Deskripsi singkat tentang diri kamu"></textarea></label>
+<label>Catatan tambahan<textarea name="notes" placeholder="Warna/desain atau permintaan khusus"></textarea></label>
+<button class="btn primary full" type="submit">Lanjut ke Konfirmasi</button>
+</form>
+</main>
+<script src="app.js"></script><script>
+const id=new URLSearchParams(location.search).get('id')||localStorage.getItem('cv_package')||'ats';
+const p=packages.find(x=>x.id===id)||packages[0];
+document.getElementById('selected').innerHTML=`<b>${p.icon} ${p.name}</b><span>${money(p.price)}</span>`;
+document.getElementById('orderForm').addEventListener('submit',e=>{
+ e.preventDefault(); const data=Object.fromEntries(new FormData(e.target)); data.package=id; data.date=new Date().toLocaleString('id-ID');
+ localStorage.setItem('cv_order',JSON.stringify(data)); location.href='konfirmasi.html';
+});
+</script></body></html>

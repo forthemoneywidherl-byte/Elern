@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Konfirmasi — CVKita</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="page-head"><button onclick="history.back()">←</button><h1>Konfirmasi</h1><span></span></header>
+<main class="section"><div id="summary" class="summary-card"></div>
+<button class="btn wa full" id="wa">📱 Kirim Pesanan via WhatsApp</button>
+<p class="hint">Ganti nomor WhatsApp admin di <b>app.js</b> sebelum dipakai untuk menerima pesanan.</p>
+</main>
+<script src="app.js"></script><script>
+const o=JSON.parse(localStorage.getItem('cv_order')||'null'); const p=o&&packages.find(x=>x.id===o.package);
+if(!o){location.href='index.html'} else {
+document.getElementById('summary').innerHTML=`<p class="eyebrow">RINGKASAN PESANAN</p><h2>${p.name}</h2><div class="price">${money(p.price)}</div>
+<div class="summary-line"><span>Nama</span><b>${o.name}</b></div><div class="summary-line"><span>WhatsApp</span><b>${o.phone}</b></div><div class="summary-line"><span>Target</span><b>${o.job}</b></div>
+<div class="summary-line"><span>Pendidikan</span><b>${o.education}</b></div><div class="summary-line"><span>Pengalaman</span><b>${o.experience}</b></div><div class="summary-line"><span>Skill</span><b>${o.skills}</b></div>`;
+document.getElementById('wa').onclick=()=>sendWhatsApp(o,p);
+}
+</script></body></html>
